@@ -69,7 +69,7 @@ const CARENS_GRADIENT = 'linear-gradient(180deg, #c0503c 0%, #96321e 35%, #6e1e1
 
 export { CARENS_GRADIENT, SONET_GRADIENT }
 
-export default function YoutubePlaylist({ playlistId: _playlistId, onVideoSelect, videos, playlistTitle = 'Sonet X-Line', channelName = 'Kia India', sidebarGradient = SONET_GRADIENT }: Props) {
+export default function YoutubePlaylist({ onVideoSelect, videos, playlistTitle = 'Sonet X-Line', channelName = 'Kia India', sidebarGradient = SONET_GRADIENT }: Props) {
   const totalViews = videos.reduce((s, v) => s + v.views, 0)
   const channelInitial = channelName.charAt(0).toUpperCase()
 
