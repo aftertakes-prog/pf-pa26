@@ -46,7 +46,7 @@ export default function PhoneFrame({
           />
         ) : poster ? (
           /* eslint-disable-next-line @next/next/no-img-element */
-          <img src={poster} alt="" style={{ width: '100%', height: 'auto', display: 'block' }} />
+          <img src={poster} alt="" style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', height: '100%', width: 'auto', maxWidth: 'none' }} />
         ) : (
           <div className="iphone-screen-placeholder" />
         )}
