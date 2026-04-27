@@ -6,6 +6,7 @@ interface PhoneFrameProps {
   poster?: string
   frameSrc?: string
   className?: string
+  hideMuteBtn?: boolean
 }
 
 export default function PhoneFrame({
@@ -13,6 +14,7 @@ export default function PhoneFrame({
   poster,
   frameSrc = '/images/iphone-frame.png',
   className = '',
+  hideMuteBtn = false,
 }: PhoneFrameProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [muted, setMuted] = useState(true)
@@ -62,7 +64,7 @@ export default function PhoneFrame({
         onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
       />
 
-      {videoSrc && (
+      {videoSrc && !hideMuteBtn && (
         <button
           className="iphone-mute-btn"
           onClick={toggleMute}

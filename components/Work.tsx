@@ -82,6 +82,7 @@ interface ProductProject {
   videoPoster?: string
   /** URL shown in the browser address bar (browser frameType only) */
   browserUrl?: string
+  hideMuteBtn?: boolean
 }
 
 const brandProjects: BrandProject[] = [
@@ -134,6 +135,7 @@ const productProjects: ProductProject[] = [
     caseStudyHref: '/work/spinny-buy',
     frameType: 'phone',
     videoSrc: '/videos/spinny-buy-homepage.mov',
+    hideMuteBtn: true,
   },
   {
     index: '03',
@@ -341,7 +343,7 @@ export default function Work() {
               <div className="work-card__media">
                 {p.frameType === 'browser'
                   ? <BrowserFrame videoSrc={p.videoSrc} poster={p.videoPoster} url={p.browserUrl} />
-                  : <PhoneFrame videoSrc={p.videoSrc} poster={p.videoPoster} />
+                  : <PhoneFrame videoSrc={p.videoSrc} poster={p.videoPoster} hideMuteBtn={p.hideMuteBtn} />
                 }
               </div>
               <div className="work-card__content">
