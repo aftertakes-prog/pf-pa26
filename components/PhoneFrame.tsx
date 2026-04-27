@@ -44,6 +44,9 @@ export default function PhoneFrame({
             playsInline
             className="iphone-video"
           />
+        ) : poster ? (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img src={poster} alt="" className="iphone-video" style={{ objectFit: 'cover', objectPosition: 'top' }} />
         ) : (
           <div className="iphone-screen-placeholder" />
         )}

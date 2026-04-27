@@ -144,6 +144,7 @@ const productProjects: ProductProject[] = [
     outcome: '+22% booker activation · +18% bookings per booker · +16% conversion · +4% seat attach',
     caseStudyHref: '/work/gotribe',
     frameType: 'phone',
+    videoPoster: '/images/gotribe-thumbnail.png',
   },
   {
     index: '04',
