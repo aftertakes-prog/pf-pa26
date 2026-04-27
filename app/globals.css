@@ -2310,6 +2310,21 @@ body { cursor: none; }
   object-position: top center;
   display: block;
 }
+/* Centred phone mockup inside a case study section */
+.cs-phone-showcase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2.5rem 0;
+}
+.cs-phone-showcase .iphone-wrap {
+  max-width: 200px;
+  width: 100%;
+}
+.cs-phone-showcase .cs-screenshot-caption {
+  margin-top: 14px;
+}
+
 .cs-screenshot-caption {
   margin-top: 10px;
   text-align: center;

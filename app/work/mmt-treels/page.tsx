@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Nav from '@/components/Nav'
+import PhoneFrame from '@/components/PhoneFrame'
 
 export const metadata = {
   title: 'MMT Treels — Pooja Koundal',
@@ -106,19 +107,9 @@ export default function MmtTreelsPage() {
               Producing 500+ videos across this inventory, at consistent quality and with a distinct creative voice for each property, required building a system, not just a shoot schedule.
             </p>
 
-            {/* ── VIDEO SLOT — wire up when file is shared ── */}
-            <div className="cs-screenshot">
-              <div className="cs-screenshot__frame cs-screenshot__frame--video">
-                <video
-                  src="/videos/mmt-treels-cs.mp4"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                />
-              </div>
-              <div className="cs-screenshot-caption">MMT Treels · Sample from the pan-India production</div>
+            <div className="cs-phone-showcase">
+              <PhoneFrame videoSrc="/videos/mmt-treels-cs.mp4" hideMuteBtn />
+              <div className="cs-screenshot-caption">MMT Treels · Overview of the Product</div>
             </div>
           </section>
 
