@@ -73,7 +73,9 @@ interface ProductProject {
   period: string
   desc: string
   outcome: string
-  caseStudyHref: string
+  caseStudyHref?: string
+  /** Opens a slide-in panel instead of navigating */
+  panelId?: 'mmt'
   /** 'browser' = desktop screen recording; 'phone' = mobile screen recording */
   frameType: 'browser' | 'phone'
   videoSrc?: string
@@ -104,16 +106,6 @@ const brandProjects: BrandProject[] = [
     frameType: 'browser',
     browserUrl: 'youtube.com/playlist?list=PL_mUkanXQHmdparUnp5U155w9BXqEbuzj',
     playlistId: 'PL_mUkanXQHmdparUnp5U155w9BXqEbuzj',
-  },
-  {
-    index: '03',
-    title: 'MMT Treels',
-    company: 'MakeMyTrip',
-    scope: ['Content Strategy', 'UX Writing', 'Format Design'],
-    period: 'Jul 2023–Apr 2025',
-    desc: 'Designed and launched a video content format for 250+ luxury hotels inside the MakeMyTrip app. Named the format, wrote scripting briefs, hotel partner guidelines, and editorial tone of voice for the series.',
-    outcome: '2x avg reel viewing time · 20% engagement uplift · 15% bounce drop · Won Super Tripper of the Month',
-    phoneVideo: '/videos/mmt-treels.mp4',
   },
 ]
 
@@ -152,6 +144,18 @@ const productProjects: ProductProject[] = [
     outcome: '+22% booker activation · +18% bookings per booker · +16% conversion · +4% seat attach',
     caseStudyHref: '/work/gotribe',
     frameType: 'phone',
+  },
+  {
+    index: '04',
+    title: 'MMT Treels',
+    company: 'MakeMyTrip',
+    scope: ['Creative Direction', 'Content Systems', 'Scriptwriting'],
+    period: 'Jul 2023–Apr 2025',
+    desc: 'Conceptualised and built MMT\'s scroll-first video discovery format for 250+ premium hotels pan-India. Two-format content system: 15-second Treels for discovery, 60-second walkthroughs for decision. Directed shoots, scripted 500+ videos, and built every storyboard from scratch.',
+    outcome: '30K+ unique visitors · 150% engagement lift · 25% topline lift from premium stays above ₹15K',
+    panelId: 'mmt',
+    frameType: 'phone',
+    videoSrc: '/videos/mmt-treels.mp4',
   },
 ]
 
@@ -318,11 +322,6 @@ export default function Work() {
                       Read case study →
                     </button>
                   )}
-                  {p.index === '03' && (
-                    <button className="kia-cs-cta" onClick={() => setMmtPanelOpen(true)}>
-                      Read case study →
-                    </button>
-                  )}
                 </div>
               </div>
             )
@@ -355,7 +354,10 @@ export default function Work() {
                 </div>
                 <p className="card-desc">{p.desc}</p>
                 <p className="card-outcome">↗ {p.outcome}</p>
-                <Link href={p.caseStudyHref} className="project-cs-link">Read case study</Link>
+                {p.panelId === 'mmt'
+                  ? <button className="kia-cs-cta" onClick={() => setMmtPanelOpen(true)}>Read case study →</button>
+                  : p.caseStudyHref && <Link href={p.caseStudyHref} className="project-cs-link">Read case study</Link>
+                }
               </div>
             </div>
           ))}
