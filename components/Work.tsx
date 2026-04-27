@@ -3,8 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import PhoneFrame from './PhoneFrame'
 import BrowserFrame from './BrowserFrame'
-import KiaDemoFrame from './KiaDemoFrame'
-import KiaCaseStudyPanel from './KiaCaseStudyPanel'
+import KiaBrandCard from './KiaBrandCard'
 
 // ── Flip-board character scramble ─────────────────────────────────────────
 const FLIP_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
@@ -58,8 +57,6 @@ interface BrandProject {
   phonePoster?: string
   /** 'browser' = show a browser frame with an embedded playlist/URL */
   frameType?: 'phone' | 'browser'
-  /** Opens the Kia slide-in case study panel */
-  hasCaseStudy?: boolean
   /** Interactive YouTube playlist — fetched from RSS, no API key */
   playlistId?: string
   embedUrl?: string
@@ -105,7 +102,6 @@ const brandProjects: BrandProject[] = [
     frameType: 'browser',
     browserUrl: 'youtube.com/playlist?list=PL_mUkanXQHmdparUnp5U155w9BXqEbuzj',
     playlistId: 'PL_mUkanXQHmdparUnp5U155w9BXqEbuzj',
-    hasCaseStudy: true,
   },
   {
     index: '03',
@@ -163,7 +159,6 @@ export default function Work() {
   const brandBtnRef = useRef<HTMLButtonElement>(null)
   const productBtnRef = useRef<HTMLButtonElement>(null)
   const [mode, setMode] = useState<'brand' | 'product'>('product')
-  const [kiaPanelOpen, setKiaPanelOpen] = useState(false)
 
   // Section label reveal
   useEffect(() => {
@@ -292,44 +287,34 @@ export default function Work() {
 
       {mode === 'brand' && (
         <div className="work-list">
-          {brandProjects.map((p) => (
-            <div className={`brand-card${p.frameType === 'browser' ? ' brand-card--browser' : ''}`} key={p.index}>
-              <div className="work-card__media">
-                {p.frameType === 'browser' && p.index === '02'
-                  ? <KiaDemoFrame />
-                  : p.frameType === 'browser'
-                  ? <BrowserFrame url={p.browserUrl} playlistId={p.playlistId} embedUrl={p.embedUrl} />
-                  : <PhoneFrame videoSrc={p.phoneVideo} poster={p.phonePoster} />
-                }
-              </div>
-              <div className="work-card__content">
-                <div className="card-meta">
-                  <span className="card-meta__index">{p.index}</span>
-                  <span className="card-meta__company">{p.company}</span>
-                  <span className="card-meta__period">{p.period}</span>
+          {brandProjects.map((p) => {
+            if (p.index === '02') return <KiaBrandCard key={p.index} />
+            return (
+              <div className={`brand-card${p.frameType === 'browser' ? ' brand-card--browser' : ''}`} key={p.index}>
+                <div className="work-card__media">
+                  {p.frameType === 'browser'
+                    ? <BrowserFrame url={p.browserUrl} playlistId={p.playlistId} embedUrl={p.embedUrl} />
+                    : <PhoneFrame videoSrc={p.phoneVideo} poster={p.phonePoster} />
+                  }
                 </div>
-                <h3 className="card-title">{p.title}</h3>
-                <div className="card-scope">
-                  {p.scope.map((s) => <span key={s}>{s}</span>)}
+                <div className="work-card__content">
+                  <div className="card-meta">
+                    <span className="card-meta__index">{p.index}</span>
+                    <span className="card-meta__company">{p.company}</span>
+                    <span className="card-meta__period">{p.period}</span>
+                  </div>
+                  <h3 className="card-title">{p.title}</h3>
+                  <div className="card-scope">
+                    {p.scope.map((s) => <span key={s}>{s}</span>)}
+                  </div>
+                  <p className="card-desc">{p.desc}</p>
+                  <p className="card-outcome">↗ {p.outcome}</p>
                 </div>
-                <p className="card-desc">{p.desc}</p>
-                <p className="card-outcome">↗ {p.outcome}</p>
-                {p.hasCaseStudy && (
-                  <button
-                    className="project-cs-link"
-                    onClick={() => setKiaPanelOpen(true)}
-                    style={{ background: 'none', border: 'none', padding: 0, textAlign: 'left', cursor: 'pointer' }}
-                  >
-                    Read case study →
-                  </button>
-                )}
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       )}
-
-      <KiaCaseStudyPanel isOpen={kiaPanelOpen} onClose={() => setKiaPanelOpen(false)} />
 
       {mode === 'product' && (
         <div className="work-list">

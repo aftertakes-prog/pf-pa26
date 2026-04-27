@@ -1,5 +1,4 @@
 'use client'
-import { useState } from 'react'
 import BrowserFrame from './BrowserFrame'
 import { SONET_VIDEOS, CARENS_VIDEOS, SONET_GRADIENT, CARENS_GRADIENT } from './YoutubePlaylist'
 
@@ -26,8 +25,12 @@ const CONFIG = {
   },
 } as const
 
-export default function KiaDemoFrame() {
-  const [campaign, setCampaign] = useState<Campaign>('sonet')
+interface Props {
+  campaign: Campaign
+  onCampaignChange: (c: Campaign) => void
+}
+
+export default function KiaDemoFrame({ campaign, onCampaignChange }: Props) {
   const active = CONFIG[campaign]
 
   return (
@@ -39,7 +42,7 @@ export default function KiaDemoFrame() {
           {(Object.keys(CONFIG) as Campaign[]).map(c => (
             <button
               key={c}
-              onClick={() => setCampaign(c)}
+              onClick={() => onCampaignChange(c)}
               className={`brand-switcher-pill brand-switcher-pill--${c}${campaign === c ? ' is-active' : ''}`}
             >
               {CONFIG[c].label}
