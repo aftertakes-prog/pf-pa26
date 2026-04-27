@@ -4,6 +4,7 @@ import Link from 'next/link'
 import PhoneFrame from './PhoneFrame'
 import BrowserFrame from './BrowserFrame'
 import KiaDemoFrame from './KiaDemoFrame'
+import KiaCaseStudyPanel from './KiaCaseStudyPanel'
 
 // ── Flip-board character scramble ─────────────────────────────────────────
 const FLIP_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
@@ -57,6 +58,8 @@ interface BrandProject {
   phonePoster?: string
   /** 'browser' = show a browser frame with an embedded playlist/URL */
   frameType?: 'phone' | 'browser'
+  /** Opens the Kia slide-in case study panel */
+  hasCaseStudy?: boolean
   /** Interactive YouTube playlist — fetched from RSS, no API key */
   playlistId?: string
   embedUrl?: string
@@ -93,15 +96,16 @@ const brandProjects: BrandProject[] = [
   },
   {
     index: '02',
-    title: '#CarensFamilyDrive',
-    company: 'Innocean India – Kia',
-    scope: ['Experiential Campaign', 'Digital Copy', 'Community'],
+    title: 'Kia India — Two Launches, One Voice',
+    company: 'Innocean India × Kia India',
+    scope: ['Brand Strategy', 'Campaign Writing', 'ATL + Digital + Retail'],
     period: 'Nov 2021–Dec 2022',
-    desc: 'Conceived and executed the #CarensFamilyDrive owner-storytelling campaign for the Kia Carens launch. Wrote Seltos/Sonet X Line copy and led #KiaQatarKickOff for FIFA World Cup 2022.',
-    outcome: '50K+ social impressions · 10K+ FIFA participants · 12+ Kia360 events',
+    desc: 'Built brand strategy and copy voice for two flagship Kia India launches — the Sonet X Line and the Carens. From positioning through execution across TV, OOH, digital, and 500+ dealerships. One idea carried everything.',
+    outcome: '75M+ YouTube views · 19K+ pre-launch bookings · 200K+ units sold',
     frameType: 'browser',
     browserUrl: 'youtube.com/playlist?list=PL_mUkanXQHmdparUnp5U155w9BXqEbuzj',
     playlistId: 'PL_mUkanXQHmdparUnp5U155w9BXqEbuzj',
+    hasCaseStudy: true,
   },
   {
     index: '03',
@@ -159,6 +163,7 @@ export default function Work() {
   const brandBtnRef = useRef<HTMLButtonElement>(null)
   const productBtnRef = useRef<HTMLButtonElement>(null)
   const [mode, setMode] = useState<'brand' | 'product'>('product')
+  const [kiaPanelOpen, setKiaPanelOpen] = useState(false)
 
   // Section label reveal
   useEffect(() => {
@@ -309,11 +314,22 @@ export default function Work() {
                 </div>
                 <p className="card-desc">{p.desc}</p>
                 <p className="card-outcome">↗ {p.outcome}</p>
+                {p.hasCaseStudy && (
+                  <button
+                    className="project-cs-link"
+                    onClick={() => setKiaPanelOpen(true)}
+                    style={{ background: 'none', border: 'none', padding: 0, textAlign: 'left', cursor: 'pointer' }}
+                  >
+                    Read case study →
+                  </button>
+                )}
               </div>
             </div>
           ))}
         </div>
       )}
+
+      <KiaCaseStudyPanel isOpen={kiaPanelOpen} onClose={() => setKiaPanelOpen(false)} />
 
       {mode === 'product' && (
         <div className="work-list">
