@@ -4,6 +4,8 @@ import Link from 'next/link'
 import PhoneFrame from './PhoneFrame'
 import BrowserFrame from './BrowserFrame'
 import KiaBrandCard from './KiaBrandCard'
+import MmtCaseStudyPanel from './MmtCaseStudyPanel'
+import OttCaseStudyPanel from './OttCaseStudyPanel'
 
 // ── Flip-board character scramble ─────────────────────────────────────────
 const FLIP_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
@@ -159,6 +161,8 @@ export default function Work() {
   const brandBtnRef = useRef<HTMLButtonElement>(null)
   const productBtnRef = useRef<HTMLButtonElement>(null)
   const [mode, setMode] = useState<'brand' | 'product'>('product')
+  const [ottPanelOpen, setOttPanelOpen] = useState(false)
+  const [mmtPanelOpen, setMmtPanelOpen] = useState(false)
 
   // Section label reveal
   useEffect(() => {
@@ -309,12 +313,25 @@ export default function Work() {
                   </div>
                   <p className="card-desc">{p.desc}</p>
                   <p className="card-outcome">↗ {p.outcome}</p>
+                  {p.index === '01' && (
+                    <button className="kia-cs-cta" onClick={() => setOttPanelOpen(true)}>
+                      Read case study →
+                    </button>
+                  )}
+                  {p.index === '03' && (
+                    <button className="kia-cs-cta" onClick={() => setMmtPanelOpen(true)}>
+                      Read case study →
+                    </button>
+                  )}
                 </div>
               </div>
             )
           })}
         </div>
       )}
+
+      <OttCaseStudyPanel isOpen={ottPanelOpen} onClose={() => setOttPanelOpen(false)} />
+      <MmtCaseStudyPanel isOpen={mmtPanelOpen} onClose={() => setMmtPanelOpen(false)} />
 
       {mode === 'product' && (
         <div className="work-list">

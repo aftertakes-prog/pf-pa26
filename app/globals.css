@@ -3315,6 +3315,13 @@ body { cursor: none; }
   object-fit: cover;
   display: block;
 }
+/* Gradient hero variants — for panels without a photo */
+.kia-panel__hero--mmt {
+  background: linear-gradient(135deg, #1a2a1a 0%, #2d4a2d 35%, #4a6741 65%, #1e3320 100%);
+}
+.kia-panel__hero--ott {
+  background: linear-gradient(135deg, #1a0d2e 0%, #3b1f6b 40%, #6b3fa0 70%, #2a1050 100%);
+}
 .kia-panel__hero-overlay {
   position: absolute;
   inset: 0;
