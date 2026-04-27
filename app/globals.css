@@ -2297,6 +2297,10 @@ body { cursor: none; }
   aspect-ratio: 8 / 3;
   position: relative;
 }
+.cs-screenshot__frame--video {
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
 .cs-screenshot__frame img {
   position: absolute;
   inset: 0;

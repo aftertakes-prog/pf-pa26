@@ -4,7 +4,6 @@ import Link from 'next/link'
 import PhoneFrame from './PhoneFrame'
 import BrowserFrame from './BrowserFrame'
 import KiaBrandCard from './KiaBrandCard'
-import MmtCaseStudyPanel from './MmtCaseStudyPanel'
 import OttCaseStudyPanel from './OttCaseStudyPanel'
 
 // ── Flip-board character scramble ─────────────────────────────────────────
@@ -74,8 +73,6 @@ interface ProductProject {
   desc: string
   outcome: string
   caseStudyHref?: string
-  /** Opens a slide-in panel instead of navigating */
-  panelId?: 'mmt'
   /** 'browser' = desktop screen recording; 'phone' = mobile screen recording */
   frameType: 'browser' | 'phone'
   videoSrc?: string
@@ -157,7 +154,7 @@ const productProjects: ProductProject[] = [
     period: 'Jul 2023–Apr 2025',
     desc: 'Conceptualised and built MMT\'s scroll-first video discovery format for 250+ premium hotels pan-India. Two-format content system: 15-second Treels for discovery, 60-second walkthroughs for decision. Directed shoots, scripted 500+ videos, and built every storyboard from scratch.',
     outcome: '30K+ unique visitors · 150% engagement lift · 25% topline lift from premium stays above ₹15K',
-    panelId: 'mmt',
+    caseStudyHref: '/work/mmt-treels',
     frameType: 'phone',
     videoSrc: '/videos/mmt-treels.mp4',
   },
@@ -170,7 +167,6 @@ export default function Work() {
   const productBtnRef = useRef<HTMLButtonElement>(null)
   const [mode, setMode] = useState<'brand' | 'product'>('product')
   const [ottPanelOpen, setOttPanelOpen] = useState(false)
-  const [mmtPanelOpen, setMmtPanelOpen] = useState(false)
 
   // Section label reveal
   useEffect(() => {
@@ -334,7 +330,6 @@ export default function Work() {
       )}
 
       <OttCaseStudyPanel isOpen={ottPanelOpen} onClose={() => setOttPanelOpen(false)} />
-      <MmtCaseStudyPanel isOpen={mmtPanelOpen} onClose={() => setMmtPanelOpen(false)} />
 
       {mode === 'product' && (
         <div className="work-list">
@@ -358,9 +353,7 @@ export default function Work() {
                 </div>
                 <p className="card-desc">{p.desc}</p>
                 <p className="card-outcome">↗ {p.outcome}</p>
-                {p.panelId === 'mmt'
-                  ? <button className="kia-cs-cta" onClick={() => setMmtPanelOpen(true)}>Read case study →</button>
-                  : p.caseStudyHref && <Link href={p.caseStudyHref} className="project-cs-link">Read case study</Link>
+                {p.caseStudyHref && <Link href={p.caseStudyHref} className="project-cs-link">Read case study</Link>
                 }
               </div>
             </div>
