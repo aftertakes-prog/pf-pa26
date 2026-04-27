@@ -133,6 +133,7 @@ const productProjects: ProductProject[] = [
     outcome: '−5.14% time-to-visit · +3.6% user-to-visit · +3.2% user-to-delivery · A/B at 2.5M MAU',
     caseStudyHref: '/work/spinny-buy',
     frameType: 'phone',
+    videoSrc: '/videos/spinny-buy-homepage.mov',
   },
   {
     index: '03',
