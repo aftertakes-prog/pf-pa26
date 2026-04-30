@@ -891,35 +891,37 @@ body { cursor: none; }
   text-align: right;
 }
 
-/* Skills — infinite marquee tracks */
-.skills-tracks {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  padding: 3rem 0 1rem;
-  border-top: 1px solid var(--c-border);
-  margin-top: 3rem;
-}
-
-.skills-track-wrap {
+/* Skills — physics arena */
+.skills-arena {
+  position: relative;
+  height: 580px;
   overflow: hidden;
-  /* Fade edges */
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  margin-top: 3rem;
+  border-top: 1px solid var(--c-border);
 }
 
-.skills-track {
-  display: flex;
-  gap: 0.75rem;
-  width: max-content;
+/* ── Shared physics element base ─────────────────────────────────────────── */
+.skills-pill,
+.skills-circle,
+.skills-star {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: grab;
+  user-select: none;
   will-change: transform;
+  transition: opacity 0.4s ease;
 }
+.skills-pill:active,
+.skills-circle:active,
+.skills-star:active { cursor: grabbing; }
 
 /* ── Pills ───────────────────────────────────────────────────────────────── */
 .skills-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.55rem;
   padding: 0.62rem 1.3rem;
   border-radius: 999px;
   border: 1px solid var(--c-border);
@@ -930,7 +932,6 @@ body { cursor: none; }
   text-transform: uppercase;
   color: var(--c-heading);
   white-space: nowrap;
-  user-select: none;
   box-shadow:
     0 2px 0 rgba(0, 0, 0, 0.55),
     0 8px 28px rgba(0, 0, 0, 0.28),
@@ -951,12 +952,63 @@ body { cursor: none; }
 .skills-pill--tools    { border-color: rgba(190, 110, 160, 0.45); }
 .skills-pill--context  { border-color: rgba(240, 237, 232, 0.2); }
 
+/* ── Circle badges ───────────────────────────────────────────────────────── */
+.skills-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 1px solid var(--c-border);
+  background: var(--c-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  color: var(--c-heading);
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.55),
+    0 8px 28px rgba(0, 0, 0, 0.28),
+    0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+/* ── Star / asterisk shapes ──────────────────────────────────────────────── */
+.skills-star {
+  color: var(--c-muted);
+  opacity: 0;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.35));
+}
+.skills-star--lg { width: 72px;  height: 72px;  }
+.skills-star--md { width: 52px;  height: 52px;  }
+.skills-star--sm { width: 36px;  height: 36px;  }
+.skills-star svg { width: 100%; height: 100%; display: block; }
+
+/* ── Drag hint ───────────────────────────────────────────────────────────── */
+.skills-drag-hint {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: 'Helvetica', sans-serif;
+  font-size: 0.56rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+  opacity: 0.45;
+  transition: opacity 1s ease;
+  pointer-events: none;
+}
+
 /* ── Light mode overrides ────────────────────────────────────────────────── */
-[data-theme="light"] .skills-pill {
+[data-theme="light"] .skills-pill,
+[data-theme="light"] .skills-circle {
   box-shadow:
     0 2px 0 rgba(0, 0, 0, 0.12),
     0 8px 28px rgba(0, 0, 0, 0.10),
     0 2px 8px rgba(0, 0, 0, 0.07);
+}
+[data-theme="light"] .skills-star {
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.14));
 }
 
 /* Contact */
@@ -3544,7 +3596,12 @@ body { cursor: none; }
   .experience__company { text-align: left; }
 
   /* ── Skills ──────────────────────────────────────────────────────────── */
+  .skills-arena      { height: 500px; }
   .skills-pill       { padding: 0.55rem 1.1rem; }
+  .skills-circle     { width: 58px; height: 58px; font-size: 1.05rem; }
+  .skills-star--lg   { width: 56px; height: 56px; }
+  .skills-star--md   { width: 42px; height: 42px; }
+  .skills-star--sm   { width: 30px; height: 30px; }
 
   /* ── Contact ─────────────────────────────────────────────────────────── */
   .contact__headline {
@@ -3585,7 +3642,12 @@ body { cursor: none; }
   .about__headline { font-size: clamp(1.5rem, 7vw, 2rem); }
 
   /* ── Skills ──────────────────────────────────────────────────────────── */
+  .skills-arena    { height: 420px; }
   .skills-pill     { padding: 0.48rem 0.95rem; font-size: 0.62rem; }
+  .skills-circle   { width: 50px; height: 50px; font-size: 0.95rem; }
+  .skills-star--lg { width: 48px; height: 48px; }
+  .skills-star--md { width: 34px; height: 34px; }
+  .skills-star--sm { width: 24px; height: 24px; }
 
   /* ── Contact ─────────────────────────────────────────────────────────── */
   .contact__headline { font-size: clamp(1.9rem, 9.5vw, 2.5rem); }
