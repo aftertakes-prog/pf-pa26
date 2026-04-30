@@ -66,7 +66,7 @@ export default function About() {
         <span className="section__label-text">About</span>
       </div>
 
-      <div className="about__cols" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', position: 'relative' }}>
+      <div className="about__cols">
         <div>
           <div className="about__bio" data-lenis-speed="0.93">
             <p>I&apos;m Pooja — a UX writer who thinks in systems but writes for people. Five years across MakeMyTrip, HT Media, and Kia taught me that the best copy disappears into the experience.</p>
@@ -86,9 +86,6 @@ export default function About() {
           </div>
         </div>
 
-        <div style={{ position: 'relative' }}>
-          <span className="about__ghost" data-lenis-speed="0.55" aria-hidden="true">2020</span>
-        </div>
       </div>
     </section>
   )
